@@ -1,10 +1,17 @@
+import MovieList from './MovieList.js';
+
 class App extends React.Component {
   constructor(props) {
     super(props)
   }
 
   render() {
-    return <div className="ui text container">Hello World</div>
+    return (
+      <div className="ui text container">
+        <h1 className="ui aligned header">Movie List</h1>
+        <MovieList movies={this.props.movies}/>
+      </div>
+    )
   }
 }
 

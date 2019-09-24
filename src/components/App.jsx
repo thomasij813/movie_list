@@ -1,28 +1,17 @@
 import MovieList from './MovieList.js';
-import Search from './Search.js'
-
-import movieData from '../data/movies.js'
+import Input from './Input.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       movies: [],
-      filterTerm: '',
-      loading: true
+      filterTerm: ''
     }
   }
 
   updateFilterTerm(filterTerm) {
     this.setState({ filterTerm });
-  }
-
-  componentDidMount() {
-    console.log(movieData)
-    this.setState({ 
-      movies: movieData,
-      loading: false
-    });
   }
 
   filterMovies(term) {
@@ -33,16 +22,22 @@ class App extends React.Component {
     return filteredList;
   }
 
+  addMovie(title) {
+    this.setState({
+      movies: [...this.state.movies, { title }],
+      filterTerm: ''
+    });
+  }
+
   render() {
-    return this.state.loading ? 
-      <div>Loading...</div> : 
-      (
+    return (
         <div className="ui text container">
           <h1 className="ui aligned header">Movie List</h1>
-          <Search handleSearch={this.updateFilterTerm.bind(this)} />
+          <Input handleSubmit={this.addMovie.bind(this)}>Add Movie</Input>
+          <Input handleSubmit={this.updateFilterTerm.bind(this)} >Search</Input>
           <MovieList movies={this.filterMovies(this.state.filterTerm)}/>
         </div>
-      )
+      );
   }
 }
 
